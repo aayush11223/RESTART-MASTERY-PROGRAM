@@ -1,5 +1,6 @@
 import express from "express"
 import connectDB from "./db.js";
+import taskRoutes from "./routes/taskRoutes.js"
 
 const app = express();
 const PORT = 5000;
@@ -12,6 +13,7 @@ const handleMiddleware = (req, res, next) => {
 //middleware
 app.use(express.json());
 app.use(handleMiddleware);
+app.use(taskRoutes);
 
 app.get('/', (req, res) => {
     res.send("Hello world");
@@ -19,13 +21,13 @@ app.get('/', (req, res) => {
 );
 
 //params
-app.get('/GET/users/:id', (req, res) => {
+app.get('/users/:id', (req, res) => {
     console.log(req.params);
     res.send("User received")
 });
 
 //query
-app.get('/GET/search', (req, res) => {
+app.get('/search', (req, res) => {
     console.log(req.query);
     res.send(`Receive query is ${req.query.term}`);
 }
