@@ -14,6 +14,10 @@ const taskSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    category: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Category'
+    }
 
 })
 
