@@ -1,11 +1,12 @@
 import express from "express"
+import 'dotenv/config';
 import connectDB from "./config/db.js";
 import taskRoutes from "./routes/taskRoutes.js"
 import categoryRoutes from "./routes/categoryRoutes.js"
 import errorHandler from "./middleware/errorHandler.js";
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT;
 
 const handleMiddleware = (req, res, next) => {
     console.log("Middleware is working");
