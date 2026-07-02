@@ -1,10 +1,12 @@
 import express from "express"
-import connectDB from "./db.js";
+import 'dotenv/config';
+import connectDB from "./config/db.js";
 import taskRoutes from "./routes/taskRoutes.js"
 import categoryRoutes from "./routes/categoryRoutes.js"
+import errorHandler from "./middleware/errorHandler.js";
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT;
 
 const handleMiddleware = (req, res, next) => {
     console.log("Middleware is working");
@@ -34,6 +36,19 @@ app.get('/search', (req, res) => {
     res.send(`Receive query is ${req.query.term}`);
 }
 );
+
+//404 middleware
+app.use((req, res) => {
+    res.status(404).json({
+        success: false,
+        message: "Route not found"
+    });
+});
+
+//handle error
+app.use(errorHandler);
+
+
 
 //database function
 connectDB();
