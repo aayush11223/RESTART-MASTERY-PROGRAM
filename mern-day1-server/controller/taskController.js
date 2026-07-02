@@ -1,28 +1,28 @@
 import Task from "../models/task.js";
 
 // Add a task
-export const createTask = async (req, res) => {
+export const createTask = async (req, res, next) => {
     try {
         const { title, category } = req.body;
         const task = await Task.create({ title, category });
         res.status(201).json(task);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        next(error);
     }
 };
 
 // Get all tasks
-export const getAllTasks = async (req, res) => {
+export const getAllTasks = async (req, res, next) => {
     try {
         const tasks = await Task.find().populate("category");
         res.status(200).json(tasks);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        next(error);
     }
 };
 
 // Get task by ID
-export const getTaskById = async (req, res) => {
+export const getTaskById = async (req, res, next) => {
     try {
         const task = await Task.findById(req.params.id);
         if (!task) {
@@ -30,12 +30,12 @@ export const getTaskById = async (req, res) => {
         }
         res.status(200).json(task);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        next(error);
     }
 };
 
 // Update task by ID
-export const updateTaskById = async (req, res) => {
+export const updateTaskById = async (req, res, next) => {
     try {
         const task = await Task.findByIdAndUpdate(
             req.params.id,
@@ -47,12 +47,12 @@ export const updateTaskById = async (req, res) => {
         }
         res.status(200).json(task);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        next(error);
     }
 };
 
 // Delete task by ID
-export const deleteTaskById = async (req, res) => {
+export const deleteTaskById = async (req, res, next) => {
     try {
         const task = await Task.findByIdAndDelete(req.params.id);
         if (!task) {
@@ -60,6 +60,6 @@ export const deleteTaskById = async (req, res) => {
         }
         res.status(200).json(task);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        next(error);
     }
 };

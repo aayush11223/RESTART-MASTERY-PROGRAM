@@ -1,7 +1,7 @@
 import Category from "../models/category.js";
 
 //Add a task
-export const createCategories = async (req, res) => {
+export const createCategories = async (req, res, next) => {
     try {
         const { name } = req.body;
 
@@ -10,22 +10,18 @@ export const createCategories = async (req, res) => {
         res.status(201).json(category);
 
     } catch (error) {
-        res.status(500).json({
-            message: error.message
-        });
+        next(error);
     }
 };
 
 //Get assl tasks
-export const getAllCategories = async (req, res) => {
+export const getAllCategories = async (req, res, next) => {
     try {
         const categories = await Category.find();
 
         res.status(200).json(categories);
 
     } catch (error) {
-        res.status(500).json({
-            message: error.message
-        });
+        next(error);
     }
 };

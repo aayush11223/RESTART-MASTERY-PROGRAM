@@ -2,6 +2,7 @@ import express from "express"
 import connectDB from "./config/db.js";
 import taskRoutes from "./routes/taskRoutes.js"
 import categoryRoutes from "./routes/categoryRoutes.js"
+import errorHandler from "./middleware/errorHandler.js";
 
 const app = express();
 const PORT = 5000;
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use(handleMiddleware);
 app.use(taskRoutes);
 app.use(categoryRoutes);
+app.use(errorHandler);
 
 app.get('/', (req, res) => {
     res.send("Hello world");
