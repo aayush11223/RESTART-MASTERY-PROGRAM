@@ -17,7 +17,6 @@ app.use(express.json());
 app.use(handleMiddleware);
 app.use(taskRoutes);
 app.use(categoryRoutes);
-app.use(errorHandler);
 
 app.get('/', (req, res) => {
     res.send("Hello world");
@@ -36,6 +35,19 @@ app.get('/search', (req, res) => {
     res.send(`Receive query is ${req.query.term}`);
 }
 );
+
+//404 middleware
+app.use((req, res) => {
+    res.status(404).json({
+        success: false,
+        message: "Route not found"
+    });
+});
+
+//handle error
+app.use(errorHandler);
+
+
 
 //database function
 connectDB();
