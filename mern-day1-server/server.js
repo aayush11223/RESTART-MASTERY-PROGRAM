@@ -1,5 +1,5 @@
 import express from "express"
-import connectDB from "./db.js";
+import connectDB from "./config/db.js";
 import taskRoutes from "./routes/taskRoutes.js"
 import categoryRoutes from "./routes/categoryRoutes.js"
 
